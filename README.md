@@ -39,12 +39,12 @@ Optional parameters:
 
 ### Reverse ###
 ```javascript
-w3w.positionToWords({
-  position: '51.484463,-0.195405'
-}).then(function(response) {
+  geocoder.positionToWords({
+    position: '51.484463,-0.195405'
+  }).then(function(response) {
 
-  console.log(response); //prom.cape.pump
-});
+    console.log(response); //prom.cape.pump
+  });
 ```
 
 Optional parameters:
