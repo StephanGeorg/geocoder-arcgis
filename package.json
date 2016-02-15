@@ -16,9 +16,9 @@
     "request": "^2.69.0"
   },
   "devDependencies": {
-    "mocha": "~1.21.0",
-    "should": "~4.0.4",
-    "when": "~3.4.2"
+    "mocha": "*",
+    "should": "*",
+    "when": "*"
   },
   "keywords": [
     "esri",
