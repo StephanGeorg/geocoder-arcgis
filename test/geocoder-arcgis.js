@@ -15,8 +15,8 @@ describe('GeocoderArcGIS API Wrapper', function(){
 
     it('with additional arguments', function() {
       geocoder= new GeocoderArcGIS({
-        client_id: 'RWX32G32534RTTRH',
-        client_secret: 'HRWTGQVEBZTJRTUHTRGQE362VEW'
+        client_id: '',
+        client_secret: ''
       });
 
     });
