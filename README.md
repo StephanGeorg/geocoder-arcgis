@@ -71,7 +71,18 @@ Optional parameters:
 
 ### geocodeAddresses ###
 ```javascript
-geocoder.geocodeAddresses('Glogauer Straße, Berlin',{})
+geocoder.geocodeAddresses([
+  {
+    "SingleLine": "380 New York St., Redlands, CA, 92373"
+  },
+  {
+    "Address": "1 World Way",
+    "Neighborhood": "",
+    "City": "Los Angeles",
+    "Subregion": "",
+    "Region": "CA"
+  }
+  ],{})
     .then(function(response){
       console.log(response);
     })
@@ -79,13 +90,16 @@ geocoder.geocodeAddresses('Glogauer Straße, Berlin',{})
       console.log(error);
     });
 ```
+You can pass an array of attributes to the geocoder. ObjectID and all required
+fields will be added/formatted automatically.
 
 Optional parameters:
 * you can pass all [request parameters](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-geocode-addresses.htm#ESRI_SECTION1_2F67482E18324994B54C9E93A81AA99D)
 
 ### findAddressCandidates ###
+
 ```javascript
-geocoder.findAddressCandidates('Glogauer Straße, Berlin',{})
+geocoder.findAddressCandidates([],{})
     .then(function(response){
       console.log(response);
     })

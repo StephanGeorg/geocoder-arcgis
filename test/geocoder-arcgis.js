@@ -94,7 +94,11 @@ describe('GeocoderArcGIS API Wrapper', function(){
           "SingleLine": "380 New York St., Redlands, CA, 92373"
         },
         {
-          "SingleLine": "1 World Way, Los Angeles, CA, 90045"
+          "Address": "1 World Way",
+          "Neighborhood": "",
+          "City": "Los Angeles",
+          "Subregion": "",
+          "Region": "CA"
         }
       ],{
       }).then(function(res) {
