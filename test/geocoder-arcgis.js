@@ -87,6 +87,18 @@ describe('GeocoderArcGIS API Wrapper', function(){
       });
     });
 
+    it('should be able to batch geocode', function(done) {
+      geocoder.geocodeAddresses(['name1','name2'],{
+      }).then(function(res) {
+
+        console.log(res);
+
+
+        res.should.be.json;
+        done();
+      });
+    });
+
 
   });
 
