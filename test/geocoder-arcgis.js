@@ -87,6 +87,22 @@ describe('GeocoderArcGIS API Wrapper', function(){
       });
     });
 
+    it('should be able to batch geocode', function(done) {
+
+      geocoder.geocodeAddresses([
+        {
+          "SingleLine": "380 New York St., Redlands, CA, 92373"
+        },
+        {
+          "SingleLine": "1 World Way, Los Angeles, CA, 90045"
+        }
+      ],{
+      }).then(function(res) {
+        res.should.be.json;
+        done();
+      });
+    });
+
 
   });
 
