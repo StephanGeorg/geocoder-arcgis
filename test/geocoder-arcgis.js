@@ -1,6 +1,8 @@
 
 var should          = require('should'),
-    GeocoderArcGIS  = require('../lib/geocoder-arcgis');
+    GeocoderArcGIS  = require('../lib/geocoder-arcgis'),
+    CLIENT_ID       = process.env.CLIENT_ID || null,
+    CLIENT_SECRET   = process.env.CLIENT_SECRET || null;
 
 describe('GeocoderArcGIS API Wrapper', function(){
   var geocoder;
@@ -14,9 +16,9 @@ describe('GeocoderArcGIS API Wrapper', function(){
     });
 
     it('with additional arguments', function() {
-      geocoder= new GeocoderArcGIS({
-        client_id: '',
-        client_secret: ''
+      geocoder = new GeocoderArcGIS({
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET
       });
 
     });
@@ -24,7 +26,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
   });
 
 
-  describe('API responses', function() {
+  describe('API responses without OAuth', function() {
 
     beforeEach(function(done){
       geocoder = new GeocoderArcGIS();
@@ -47,11 +49,51 @@ describe('GeocoderArcGIS API Wrapper', function(){
     });
 
     it('should be able to suggest', function(done) {
-      geocoder.suggest('Glogauer Straße, Berlin').then(function(res) {
+      geocoder.suggest('Gauer Straße, Berlin').then(function(res) {
         res.should.be.json;
         done();
       });
     });
+
+  });
+
+
+  describe('API responses with OAuth (cached)', function() {
+
+    before(function(done){
+      geocoder = new GeocoderArcGIS({
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET
+      });
+      done();
+    });
+
+
+    it('should be able to geocode with OAuth', function(done) {
+      geocoder.geocode('Berlin',{
+        forStorage: true
+      }).then(function(res) {
+        res.should.be.json;
+        done();
+      });
+    });
+
+    it('should be able to reverse geocode', function(done) {
+      geocoder.reverse('51.484463,-0.195405',{
+        forStorage: true
+      }).then(function(res) {
+        res.should.be.json;
+        done();
+      });
+    });
+
+
+  });
+
+
+  describe('Validations',function(){
+
+
 
   });
 
