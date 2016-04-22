@@ -16,9 +16,8 @@ Installing using npm:
 ```javascript
 var GeocoderArcGIS = require('geocoder-arcgis'),
     geocoder = new GeocoderArcGIS({
-      client_id:      'YOUR CLIENT ID',               // optional
-      client_secret:  'YOUR CLIENT SECRET',           // optional
-      endpoint: 'http://custom.arcgis.endpoint.com'   // optional
+      client_id: 'YOUR CLIENT ID',                      // optional
+      client_secret: 'YOUR CLIENT SECRET'              // optional
     });
 ```
 
@@ -26,6 +25,7 @@ The constructor function also takes an optional configuration object:
 
 * client_id: id for OAuth to use with "geocodeAddresses" or "forStorage" option. See [reference](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-free-vs-paid.htm)
 * client_secret: secret for OAuth to use with "geocodeAddresses" or "forStorage" option. See [reference](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-free-vs-paid.htm)
+* endpoint: custom ArcGIS endpoint
 
 ### Geocode (find) ###
 ```javascript
