@@ -2,7 +2,7 @@
   "name": "geocoder-arcgis",
   "description": "NodeJS wrapper for the ESRI ArcGIS geocoder",
   "main": "index.js",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": false,
   "repository": {
     "type": "git",

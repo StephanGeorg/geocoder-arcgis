@@ -73,9 +73,7 @@ Optional parameters:
 ### geocodeAddresses ###
 ```javascript
 geocoder.geocodeAddresses([
-  {
-    "SingleLine": "380 New York St., Redlands, CA, 92373"
-  },
+  "380 New York St., Redlands, CA, 92373",
   {
     "Address": "1 World Way",
     "Neighborhood": "",
