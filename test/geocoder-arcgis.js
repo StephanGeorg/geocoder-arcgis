@@ -96,6 +96,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
     it('should be able to batch geocode', function(done) {
       this.timeout(TIMEOUT);
       geocoder.geocodeAddresses([
+        '381 New York St., Redlands, CA, 92373',
         {
           "SingleLine": "380 New York St., Redlands, CA, 92373"
         },
