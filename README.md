@@ -58,7 +58,7 @@ Optional parameters:
 
 ### Suggest (suggest) ###
 ```javascript
-geocoder.suggest('380 New York Street, Redlands, CA 92373',{})
+geocoder.suggest('Glogauer Straße, Berlin',{})
     .then(function(response){
       console.log(response);
     })
@@ -66,8 +66,6 @@ geocoder.suggest('380 New York Street, Redlands, CA 92373',{})
       console.log(error);
     });
 ```
-You can pass a [SingleLine string or an object] (https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105) to the geocoder.
-
 
 Optional parameters:
 * you can pass all [request parameters](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-suggest.htm#ESRI_SECTION1_606D93C721874B16844B9AB9CA8083FF)
@@ -109,6 +107,8 @@ geocoder.findAddressCandidates([],{})
     });
 ```
 
+You can pass a [SingleLine string or an object] (https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105) to the geocoder.
+
 Optional parameters:
 * you can pass all [request parameters](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105)
 
@@ -116,7 +116,3 @@ Optional parameters:
 ### Response ###
 
 All methods return a promise.
-
-## See Also ##
-
- * [geoservices-js](https://github.com/Esri/geoservices-js/blob/master/docs/Geocoding.md) provides another client for the ArcGIS geocoder, using a callback interface instead of promises.
