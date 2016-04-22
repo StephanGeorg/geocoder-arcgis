@@ -2,7 +2,8 @@
 var should          = require('should'),
     GeocoderArcGIS  = require('../lib/geocoder-arcgis'),
     CLIENT_ID       = process.env.CLIENT_ID || null,
-    CLIENT_SECRET   = process.env.CLIENT_SECRET || null;
+    CLIENT_SECRET   = process.env.CLIENT_SECRET || null,
+    TIMEOUT         = process.env.TEST_TIMEOUT || 5000;
 
 describe('GeocoderArcGIS API Wrapper', function(){
   var geocoder;
@@ -35,6 +36,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
 
 
     it('should be able to geocode', function(done) {
+      this.timeout(TIMEOUT);
       geocoder.geocode('Berlin').then(function(res) {
         res.should.be.json;
         done();
@@ -42,6 +44,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
     });
 
     it('should be able to reverse geocode', function(done) {
+      this.timeout(TIMEOUT);
       geocoder.reverse('51.484463,-0.195405').then(function(res) {
         res.should.be.json;
         done();
@@ -49,6 +52,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
     });
 
     it('should be able to suggest', function(done) {
+      this.timeout(TIMEOUT);
       geocoder.suggest('Gauer Straße, Berlin').then(function(res) {
         res.should.be.json;
         done();
@@ -70,6 +74,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
 
 
     it('should be able to geocode with OAuth', function(done) {
+      this.timeout(TIMEOUT);
       geocoder.geocode('Berlin',{
         forStorage: true
       }).then(function(res) {
@@ -79,6 +84,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
     });
 
     it('should be able to reverse geocode', function(done) {
+      this.timeout(TIMEOUT);
       geocoder.reverse('51.484463,-0.195405',{
         forStorage: true
       }).then(function(res) {
@@ -88,7 +94,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
     });
 
     it('should be able to batch geocode', function(done) {
-
+      this.timeout(TIMEOUT);
       geocoder.geocodeAddresses([
         {
           "SingleLine": "380 New York St., Redlands, CA, 92373"
