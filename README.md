@@ -16,8 +16,8 @@ Installing using npm:
 ```javascript
 var GeocoderArcGIS = require('geocoder-arcgis'),
     geocoder = new GeocoderArcGIS({
-      client_id: 'YOUR CLIENT ID',                      // optional
-      client_secret: 'YOUR CLIENT SECRET'              // optional
+      client_id: 'YOUR CLIENT ID',         // optional, see below
+      client_secret: 'YOUR CLIENT SECRET'  // optional, see below
     });
 ```
 
