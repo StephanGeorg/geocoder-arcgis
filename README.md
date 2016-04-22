@@ -58,7 +58,7 @@ Optional parameters:
 
 ### Suggest (suggest) ###
 ```javascript
-geocoder.suggest('Glogauer Straße, Berlin',{})
+geocoder.suggest('380 New York Street, Redlands, CA 92373',{})
     .then(function(response){
       console.log(response);
     })
@@ -66,6 +66,8 @@ geocoder.suggest('Glogauer Straße, Berlin',{})
       console.log(error);
     });
 ```
+You can pass a [SingleLine string or an object] (https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105) to the geocoder.
+
 
 Optional parameters:
 * you can pass all [request parameters](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-suggest.htm#ESRI_SECTION1_606D93C721874B16844B9AB9CA8083FF)

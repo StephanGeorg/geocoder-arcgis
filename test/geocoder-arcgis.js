@@ -59,6 +59,14 @@ describe('GeocoderArcGIS API Wrapper', function(){
       });
     });
 
+    it('should be able to findAddressCandidates', function(done) {
+      this.timeout(TIMEOUT);
+      geocoder.findAddressCandidates('380 New York Street, Redlands, CA 92373').then(function(res) {
+        res.should.be.json;
+        done();
+      });
+    });
+
   });
 
 
@@ -93,7 +101,7 @@ describe('GeocoderArcGIS API Wrapper', function(){
       });
     });
 
-    it('should be able to batch geocode', function(done) {
+    it('should be able to geocodeAddresses', function(done) {
       this.timeout(TIMEOUT);
       geocoder.geocodeAddresses([
         '381 New York St., Redlands, CA, 92373',
