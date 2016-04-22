@@ -117,6 +117,5 @@ Optional parameters:
 
 All methods return a promise.
 
--## See Also ##		
- -		
- - * [geoservices-js](https://github.com/Esri/geoservices-js/blob/master/docs/Geocoding.md) provides another client for the ArcGIS geocoder, using a callback interface instead of promises.
+## See Also ##		
+* [geoservices-js](https://github.com/Esri/geoservices-js/blob/master/docs/Geocoding.md) provides another client for the ArcGIS geocoder, using a callback interface instead of promises.
