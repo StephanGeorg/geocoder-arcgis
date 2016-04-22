@@ -98,7 +98,7 @@ Optional parameters:
 ### findAddressCandidates ###
 
 ```javascript
-geocoder.findAddressCandidates([],{})
+geocoder.findAddressCandidates('380 New York Street, Redlands, CA 92373',{})
     .then(function(response){
       console.log(response);
     })
