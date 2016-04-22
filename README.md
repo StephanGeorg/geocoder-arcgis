@@ -7,7 +7,7 @@ A promises based node.js wrapper for the [ArcGIS](https://developers.arcgis.com/
 
 Installing using npm:
 
-    npm i geocoder-arcgis
+    npm i geocoder-arcgis --save
 
 
 ## Usage ##
@@ -16,8 +16,9 @@ Installing using npm:
 ```javascript
 var GeocoderArcGIS = require('geocoder-arcgis'),
     geocoder = new GeocoderArcGIS({
-      client_id:      'YOUR CLIENT ID',
-      client_secret:  'YOUR CLIENT SECRET'
+      client_id:      'YOUR CLIENT ID',               // optional
+      client_secret:  'YOUR CLIENT SECRET',           // optional
+      endpoint: 'http://custom.arcgis.endpoint.com'   // optional
     });
 ```
 
