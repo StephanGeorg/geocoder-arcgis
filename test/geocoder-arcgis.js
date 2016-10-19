@@ -37,26 +37,38 @@ describe('GeocoderArcGIS API Wrapper', function(){
 
     it('should be able to geocode', function(done) {
       this.timeout(TIMEOUT);
-      geocoder.geocode('Berlin').then(function(res) {
-        res.should.be.json;
-        done();
-      });
+      geocoder.geocode('Glogauer Straße 5, 10999, Berlin')
+        .then(function(res) {
+          res.should.be.json;
+          done();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     });
 
     it('should be able to reverse geocode', function(done) {
       this.timeout(TIMEOUT);
-      geocoder.reverse('51.484463,-0.195405').then(function(res) {
-        res.should.be.json;
-        done();
-      });
+      geocoder.reverse('13.4375137,52.49452050000001')
+        .then(function(res) {
+          res.should.be.json;
+          done();
+        })
+        .catch(function(error){
+          console.log(error);
+        });
     });
 
     it('should be able to suggest', function(done) {
       this.timeout(TIMEOUT);
-      geocoder.suggest('Gauer Straße, Berlin').then(function(res) {
-        res.should.be.json;
-        done();
-      });
+      geocoder.suggest('Glogauer Straße, Berlin')
+        .then(function(res) {
+          res.should.be.json;
+          done();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     });
 
     it('should be able to findAddressCandidates', function(done) {
