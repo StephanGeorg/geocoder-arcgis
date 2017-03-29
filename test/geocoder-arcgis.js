@@ -1,6 +1,6 @@
 
 var should          = require('should'),
-    GeocoderArcGIS  = require('../lib/geocoder-arcgis'),
+    GeocoderArcGIS  = require('../dist/lib/geocoder-arcgis'),
     CLIENT_ID       = process.env.CLIENT_ID || null,
     CLIENT_SECRET   = process.env.CLIENT_SECRET || null,
     TIMEOUT         = process.env.TEST_TIMEOUT || 5000;
@@ -73,10 +73,14 @@ describe('GeocoderArcGIS API Wrapper', function(){
 
     it('should be able to findAddressCandidates', function(done) {
       this.timeout(TIMEOUT);
-      geocoder.findAddressCandidates('380 New York Street, Redlands, CA 92373').then(function(res) {
-        res.should.be.json;
-        done();
-      });
+      geocoder.findAddressCandidates('380 New York Street, Redlands, CA 92373')
+        .then(function(res) {
+          res.should.be.json;
+          done();
+        })
+        .catch(function(e){
+          console.log(e);
+        });
     });
 
   });
@@ -105,11 +109,14 @@ describe('GeocoderArcGIS API Wrapper', function(){
 
     it('should be able to reverse geocode', function(done) {
       this.timeout(TIMEOUT);
-      geocoder.reverse('51.484463,-0.195405',{
+      geocoder.reverse('13.4375137,52.49452050000001',{
         forStorage: true
       }).then(function(res) {
         res.should.be.json;
         done();
+      })
+      .catch(function(e){
+        console.log(e);
       });
     });
 
