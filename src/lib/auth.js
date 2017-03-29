@@ -11,22 +11,18 @@ class ArcGISAuth {
       throw new Error('Please specify client_id and client_secret!');
     }
     this.cache = {};
+  }
 
-    /** Manage cached token from ArcGIS Online service **/
-    this.cachedToken = {
-      now() {
-        return (new Date()).getTime();
-      },
-      put(token, experation, cache) {
-        cache.token = token;
-        cache.tokenExp = this.now() + (experation - 30); // Shave 30 secs off experation to ensure that we expire slightly before the actual expiration
-      },
-      get(cache) {
-        if (!cache) return null;
-        if (this.now() <= cache.tokenExp) return cache.token;
-        return null;
-      },
-    };
+  putToken(token, experation) {
+    this.cache.token = token;
+    // Shave 30 secs off experation to ensure that we expire slightly before the actual expiration
+    this.cache.tokenExp = (new Date()).getTime() + (experation - 30);
+  }
+
+  getToken() {
+    if (!this.cache) return null;
+    if ((new Date()).getTime() <= this.cache.tokenExp) return this.cache.token;
+    return null;
   }
 
   /**
@@ -35,7 +31,7 @@ class ArcGISAuth {
    */
   auth() {
     return new Promise((resolve, reject) => {
-      const cachedToken = this.cachedToken.get(this.cache);
+      const cachedToken = this.getToken();
 
       if (cachedToken !== null) {
         resolve(cachedToken);
@@ -54,15 +50,14 @@ class ArcGISAuth {
       };
 
       request.post(options, (error, response, body) => {
-        if (error) {
-          reject({ code: 404, msg: error });
-        } else if (response.statusCode !== 200) reject({ code: response.statusCode, msg: `Unable to connect to endpoint ${options.url}` });
+        if (error) reject({ code: 404, msg: error });
+        else if (response.statusCode !== 200) reject({ code: response.statusCode, msg: `Unable to connect to endpoint ${options.url}` });
         else if (response.body.error) reject(response.body);
         else if (body) {
           const result = JSON.parse(response.body);
           const tokenExpiration = (new Date()).getTime() + result.expires_in;
           const token = result.access_token;
-          this.cachedToken.put(token, tokenExpiration, this.cache);
+          this.putToken(token, tokenExpiration);
           resolve(token);
         }
       });
