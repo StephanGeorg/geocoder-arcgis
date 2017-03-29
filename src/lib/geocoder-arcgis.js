@@ -36,8 +36,7 @@ class GeocoderArcGIS {
   }
 
   /**
-   *  Geocode a string: Deprecated!!!
-   *  Backwards compatibilty
+   *  Geocode a string
    *
    *  @param  data        string to be geocoded
    *  @params {params}    optional parameters
@@ -45,8 +44,8 @@ class GeocoderArcGIS {
    */
   geocode(data, params = {}) {
     return (params.forStorage) ?
-      this._runAuth('findAddressCandidates', data, params) :
-      this._run('findAddressCandidates', data, params);
+      this._runAuth('find', data, params) :
+      this._run('find', data, params);
   }
 
   /**
