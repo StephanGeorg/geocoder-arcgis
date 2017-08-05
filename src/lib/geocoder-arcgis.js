@@ -141,7 +141,7 @@ class GeocoderArcGIS {
    */
   _getQueryFindAddressCandidates(data) {
     if (_.isString(data)) return { SingleLine: data };
-    return JSON.stringify(data);
+    if (_.isObject(data)) return data;
   }
 
   /**
