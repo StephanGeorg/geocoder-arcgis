@@ -192,7 +192,7 @@ var GeocoderArcGIS = function () {
     key: '_getQueryFindAddressCandidates',
     value: function _getQueryFindAddressCandidates(data) {
       if (_.isString(data)) return { SingleLine: data };
-      if (_.isObject(data)) return data;
+      return data;
     }
 
     /**

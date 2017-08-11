@@ -73,8 +73,11 @@ describe('GeocoderArcGIS API Wrapper', function(){
 
     it('should be able to findAddressCandidates', function(done) {
       this.timeout(TIMEOUT);
-      geocoder.findAddressCandidates('380 New York Street, Redlands, CA 92373')
+      geocoder.findAddressCandidates('Berlin')
         .then(function(res) {
+
+          console.log(res.candidates[0].location);
+
           res.should.be.json;
           done();
         })
