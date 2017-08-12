@@ -37,6 +37,8 @@ geocoder.findAddressCandidates('380 New York Street, Redlands, CA 92373',{})
     });
 ```
 
+You can pass a [SingleLine string or an object](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105) to the geocoder.
+
 Optional parameters:
 * you can pass all [request parameters](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105)
 
@@ -88,12 +90,10 @@ geocoder.geocodeAddresses([
 ```
 
 You can pass an array of attributes to the geocoder. ObjectID and all required
-fields will be added/formatted automatically.
+fields will be added/formatted automatically. You can pass a [SingleLine string or an object](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105) to the geocoder.
 
 Optional parameters:
 * you can pass all [request parameters](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-geocode-addresses.htm#ESRI_SECTION1_2F67482E18324994B54C9E93A81AA99D)
-
-You can pass a [SingleLine string or an object](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105) to the geocoder.
 
 ### Geocode (find) - [deprecated](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm)
 ```javascript
