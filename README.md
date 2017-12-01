@@ -1,6 +1,7 @@
 # GeocoderArcGIS
 
-A promises based node.js wrapper for the [ArcGIS](https://developers.arcgis.com/features/geocoding/) Geocoder API.
+A promises based JavaScript wrapper for the [ArcGIS](https://developers.arcgis.com/features/geocoding/) Geocoder API.
+It uses isomorphic-fetch to use in browser.
 
 ## Installation
 
