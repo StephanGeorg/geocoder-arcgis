@@ -1,6 +1,10 @@
-const request = require('request');
-const _ = require('lodash');
+const get = require('lodash.get');
+const isString = require('lodash.isstring');
+const isObject = require('lodash.isobject');
 const ArcGISAuth = require('./auth.js');
+
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 /**
  * Promises based node.js wrapper for the ESRI ArcGIS geocoder
@@ -98,7 +102,7 @@ class GeocoderArcGIS {
     }
 
     query.f = params.f || 'json';
-    query = _.extend(params, query);
+    query = Object.assign(params, query);
 
     return query;
   }
@@ -140,8 +144,8 @@ class GeocoderArcGIS {
    *  Prepare the query for findAddressCandidates
    */
   _getQueryFindAddressCandidates(data) {
-    if (_.isString(data)) return { SingleLine: data };
-    if (_.isObject(data)) return data;
+    if (isString(data)) return { SingleLine: data };
+    if (isObject(data)) return data;
   }
 
   /**
@@ -150,7 +154,7 @@ class GeocoderArcGIS {
   _getQueryGeocodeAddresses(data) {
     const records = [];
     data.forEach((address, index) => {
-      if (_.isString(address)) {
+      if (isString(address)) {
         records.push({
           attributes: {
             OBJECTID: index,
@@ -222,25 +226,38 @@ class GeocoderArcGIS {
   _execute(endpoint, method, query) {
     return new Promise((resolve, reject) => {
       const options = {
-        url: endpoint + method,
+        // url: endpoint + method,
+        method: 'GET',
         qs: query,
       };
 
-      request.get(options, (error, response, body) => {
-        if (error) reject({ code: 404, msg: error });
-        else if (response.statusCode !== 200) reject({ code: response.statusCode, msg: `Unable to connect to the API endpoint ${options.url}` });
-        else if (response.body.error) reject(response.body);
-        else if (response.body) {
-          try {
-            body = JSON.parse(response.body);
-            if (body.error) reject(this.parseError(body.error));
-            else resolve(body);
-          } catch (err) {
-            reject({ code: 500, msg: err });
-          }
-        } else reject({ code: response.statusCode, msg: 'Empty body' });
-      });
+      const params = this.getQueryString(query);
+      const url = `${endpoint}${method}?${params}`;
+
+      fetch(url, options)
+        .then((response) => {
+          if (response.status >= 400) reject({ code: 404, msg: `Bad request to ${url}` });
+          return response.json();
+        })
+        .then((json) => {
+          resolve(json);
+        })
+        .catch(console.log);
     });
+  }
+
+  getQueryString(params) {
+    return Object
+    .keys(params)
+    .map((k) => {
+      if (Array.isArray(params[k])) {
+        return params[k]
+          .map(val => `${encodeURIComponent(k)}[]=${encodeURIComponent(val)}`)
+          .join('&');
+      }
+      return `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`;
+    })
+    .join('&');
   }
 
   /**
@@ -250,7 +267,7 @@ class GeocoderArcGIS {
     if (error.code === 400 && (error.details && error.details.length)) {
       return {
         code: error.code,
-        msg: _.first(error.details),
+        msg: get(error, 'details')[0] || 'Error',
       };
     }
     return error;

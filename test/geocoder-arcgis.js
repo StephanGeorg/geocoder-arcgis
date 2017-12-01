@@ -75,9 +75,6 @@ describe('GeocoderArcGIS API Wrapper', function(){
       this.timeout(TIMEOUT);
       geocoder.findAddressCandidates('Berlin')
         .then(function(res) {
-
-          console.log(res.candidates[0].location);
-
           res.should.be.json;
           done();
         })

@@ -14,8 +14,11 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "lodash": "~4.3.0",
-    "request": "^2.69.0"
+    "es6-promise": "^4.1.1",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash.get": "^4.4.2",
+    "lodash.isobject": "^3.0.2",
+    "lodash.isstring": "^4.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",

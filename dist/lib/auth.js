@@ -4,7 +4,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var request = require('request');
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 var ArcGISAuth = function () {
   function ArcGISAuth() {
@@ -64,23 +65,52 @@ var ArcGISAuth = function () {
             grant_type: 'client_credentials',
             expiration: 1440,
             f: 'json'
-          }
+          },
+          method: 'POST'
         };
 
-        request.post(options, function (error, response, body) {
-          if (error) reject({ code: 404, msg: error });else if (response.statusCode !== 200) reject({ code: response.statusCode, msg: 'Unable to connect to endpoint ' + options.url });else if (response.body.error) reject(response.body);else if (body) {
-            var result = JSON.parse(response.body);
-            var tokenExpiration = new Date().getTime() + result.expires_in;
-            var token = result.access_token;
-            _this.putToken(token, tokenExpiration);
+        var params = getQueryString(options.qs);
+        var url = options.url + '?' + params;
+
+        fetch(url, options).then(function (response) {
+          if (response.status >= 400) reject({ code: 404, msg: 'Bad request to ' + url });
+          return response.json();
+        }).then(function (json) {
+          var tokenExpiration = new Date().getTime() + json.expires_in;
+          var token = json.access_token;
+          _this.putToken(token, tokenExpiration);
+          resolve(token);
+          resolve(json);
+        }).catch(console.log);
+
+        /* request.post(options, (error, response, body) => {
+          if (error) reject({ code: 404, msg: error });
+          else if (response.statusCode !== 200) reject({ code: response.statusCode, msg: `Unable to connect to endpoint ${options.url}` });
+          else if (response.body.error) reject(response.body);
+          else if (body) {
+            const result = JSON.parse(response.body);
+            const tokenExpiration = (new Date()).getTime() + result.expires_in;
+            const token = result.access_token;
+            this.putToken(token, tokenExpiration);
             resolve(token);
           }
-        });
+        }); */
       });
     }
   }]);
 
   return ArcGISAuth;
 }();
+
+var getQueryString = function getQueryString(params) {
+  return Object.keys(params).map(function (k) {
+    if (Array.isArray(params[k])) {
+      return params[k].map(function (val) {
+        return encodeURIComponent(k) + '[]=' + encodeURIComponent(val);
+      }).join('&');
+    }
+    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+  }).join('&');
+};
 
 module.exports = ArcGISAuth;

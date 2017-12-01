@@ -1,4 +1,5 @@
-const request = require('request');
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 class ArcGISAuth {
   constructor(options = {}) {
@@ -47,9 +48,27 @@ class ArcGISAuth {
           expiration: 1440,
           f: 'json',
         },
+        method: 'POST',
       };
 
-      request.post(options, (error, response, body) => {
+      const params = getQueryString(options.qs);
+      const url = `${options.url}?${params}`;
+
+      fetch(url, options)
+        .then((response) => {
+          if (response.status >= 400) reject({ code: 404, msg: `Bad request to ${url}` });
+          return response.json();
+        })
+        .then((json) => {
+          const tokenExpiration = (new Date()).getTime() + json.expires_in;
+          const token = json.access_token;
+          this.putToken(token, tokenExpiration);
+          resolve(token);
+          resolve(json);
+        })
+        .catch(console.log);
+
+      /* request.post(options, (error, response, body) => {
         if (error) reject({ code: 404, msg: error });
         else if (response.statusCode !== 200) reject({ code: response.statusCode, msg: `Unable to connect to endpoint ${options.url}` });
         else if (response.body.error) reject(response.body);
@@ -60,9 +79,23 @@ class ArcGISAuth {
           this.putToken(token, tokenExpiration);
           resolve(token);
         }
-      });
+      }); */
     });
   }
 }
+
+const getQueryString = (params) => {
+  return Object
+  .keys(params)
+  .map((k) => {
+    if (Array.isArray(params[k])) {
+      return params[k]
+        .map(val => `${encodeURIComponent(k)}[]=${encodeURIComponent(val)}`)
+        .join('&');
+    }
+    return `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`;
+  })
+  .join('&');
+};
 
 module.exports = ArcGISAuth;
