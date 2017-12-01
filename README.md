@@ -1,4 +1,4 @@
-# GeocoderArcGIS
+# GeocoderArcGIS [![npm version](https://badge.fury.io/js/geocoder-arcgis.svg)](https://badge.fury.io/js/geocoder-arcgis)
 
 A promises based JavaScript wrapper for the [ArcGIS](https://developers.arcgis.com/features/geocoding/) Geocoder API.
 It uses isomorphic-fetch to use in browser.
