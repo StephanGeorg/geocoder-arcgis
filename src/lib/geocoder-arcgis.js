@@ -4,7 +4,9 @@ const isObject = require('lodash.isobject');
 const ArcGISAuth = require('./auth.js');
 
 require('es6-promise').polyfill();
-require('isomorphic-fetch');
+if (typeof (fetch) === 'undefined') {
+  require('isomorphic-fetch')
+}
 
 /**
  * Promises based node.js wrapper for the ESRI ArcGIS geocoder

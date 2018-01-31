@@ -1,5 +1,7 @@
 require('es6-promise').polyfill();
-require('isomorphic-fetch');
+if (typeof (fetch) === 'undefined') {
+  require('isomorphic-fetch')
+}
 
 class ArcGISAuth {
   constructor(options = {}) {
