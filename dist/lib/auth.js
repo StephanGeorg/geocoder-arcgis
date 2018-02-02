@@ -5,9 +5,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 require('es6-promise').polyfill();
-if (typeof fetch === 'undefined') {
-  require('isomorphic-fetch');
-}
+require('fetch-everywhere');
 
 var ArcGISAuth = function () {
   function ArcGISAuth() {

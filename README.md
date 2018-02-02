@@ -1,23 +1,28 @@
 # GeocoderArcGIS [![npm version](https://badge.fury.io/js/geocoder-arcgis.svg)](https://badge.fury.io/js/geocoder-arcgis)
 
 A promises based JavaScript wrapper for the [ArcGIS](https://developers.arcgis.com/features/geocoding/) Geocoder API.
-It uses isomorphic-fetch to use in browser.
+It uses fetch-everywhere to use in
+
+- Node
+- Browser
+- React-native
 
 ## Installation
 
 Installing using npm:
 
-    npm i geocoder-arcgis --save
+    npm i geocoder-arcgis -S
 
 ## Usage
 
 ### Initialization
 ```javascript
-var GeocoderArcGIS = require('geocoder-arcgis'),
-    geocoder = new GeocoderArcGIS({
-      client_id: 'YOUR CLIENT ID',         // optional, see below
-      client_secret: 'YOUR CLIENT SECRET'  // optional, see below
-    });
+const GeocoderArcGIS = require('geocoder-arcgis');
+
+const geocoder = new GeocoderArcGIS({
+  client_id: 'YOUR CLIENT ID',         // optional, see below
+  client_secret: 'YOUR CLIENT SECRET'  // optional, see below
+});
 ```
 
 The constructor function also takes an optional configuration object:
@@ -30,12 +35,10 @@ The constructor function also takes an optional configuration object:
 
 ```javascript
 geocoder.findAddressCandidates('380 New York Street, Redlands, CA 92373',{})
-    .then(function(response){
-      console.log(response);
+    .then((result) =>{
+      console.log(result);
     })
-    .catch(function(error){
-      console.log(error);
-    });
+    .catch(console.log);
 ```
 
 You can pass a [SingleLine string or an object](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105) to the geocoder.
@@ -45,12 +48,12 @@ Optional parameters:
 
 ### Reverse geocode (reverseGeocode)
 ```javascript
-  geocoder.reverse('51.484463,-0.195405',{
-      maxLocations: 10,
-      distance: 100
-    }).then(function(response) {
-      console.log(response);
-  });
+geocoder.reverse('51.484463,-0.195405',{
+  maxLocations: 10,
+  distance: 100
+}).then((result) => {
+  console.log(response);
+});
 ```
 
 Optional parameters:
@@ -59,12 +62,10 @@ Optional parameters:
 ### Suggest (suggest)
 ```javascript
 geocoder.suggest('Glogauer Straße, Berlin',{})
-    .then(function(response){
-      console.log(response);
-    })
-    .catch(function(error){
-      console.log(error);
-    });
+.then((result) => {
+  console.log(result);
+})
+.catch(console.log);
 ```
 
 Optional parameters:
@@ -82,12 +83,10 @@ geocoder.geocodeAddresses([
     "Region": "CA"
   }
   ],{})
-    .then(function(response){
-      console.log(response);
+    .then((result){
+      console.log(result);
     })
-    .catch(function(error){
-      console.log(error);
-    });
+    .catch(console.log);
 ```
 
 You can pass an array of attributes to the geocoder. ObjectID and all required
@@ -98,13 +97,11 @@ Optional parameters:
 
 ### Geocode (find) - [deprecated](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm)
 ```javascript
-  geocoder.geocode('Berlin',{})
-  .then(function(response){
-    console.log(response);
-  })
-  .catch(function(error){
-    console.log(error);
-  });
+geocoder.geocode('Berlin',{})
+    .then((response) => {
+        console.log(response);
+    })
+    .catch(console.log);
 ```
 
 ### Response
