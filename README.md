@@ -26,7 +26,7 @@ The constructor function also takes an optional configuration object:
 * client_secret: secret for OAuth to use with "geocodeAddresses" or "forStorage" option. See [reference](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-free-vs-paid.htm)
 * endpoint: custom ArcGIS endpoint
 
-### findAddressCandidates
+### Geocode (findAddressCandidates)
 
 ```javascript
 geocoder.findAddressCandidates('380 New York Street, Redlands, CA 92373',{})
@@ -43,7 +43,7 @@ You can pass a [SingleLine string or an object](https://developers.arcgis.com/re
 Optional parameters:
 * you can pass all [request parameters](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm#ESRI_SECTION1_699C8961EDD845CAB84A46409D9E9105)
 
-### Reverse (reverseGeocode)
+### Reverse geocode (reverseGeocode)
 ```javascript
   geocoder.reverse('51.484463,-0.195405',{
       maxLocations: 10,
