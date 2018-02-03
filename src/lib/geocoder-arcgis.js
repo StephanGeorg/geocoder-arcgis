@@ -1,3 +1,4 @@
+const FormData = require('form-data');
 const get = require('lodash.get');
 const isString = require('lodash.isstring');
 const isObject = require('lodash.isobject');
@@ -162,13 +163,16 @@ class GeocoderArcGIS {
           },
         });
       } else {
-        address.OBJECTID = index;
+        // allow user to specify their own OBJECTIDs
+        if (!address.OBJECTID) {
+          address.OBJECTID = index;
+        }
         records.push({
           attributes: address,
         });
       }
     });
-    return { addresses: JSON.stringify({ records }) };
+    return { addresses: { records } };
   }
 
   /**
@@ -225,14 +229,32 @@ class GeocoderArcGIS {
    */
   _execute(endpoint, method, query) {
     return new Promise((resolve, reject) => {
-      const options = {
-        // url: endpoint + method,
-        method: 'GET',
-        qs: query,
-      };
+      let options;
+      let url;
 
-      const params = this.getQueryString(query);
-      const url = `${endpoint}${method}?${params}`;
+      if (method === 'geocodeAddresses') {
+        // send geocodeAddresses with query as form data in HTTP POST request
+        url = `${endpoint}${method}`;
+
+        const formData = new FormData();
+        Object.keys(query).forEach((k) => {
+          const v = query[k];
+          formData.append(k, typeof v === 'object' ? JSON.stringify(v) : v);
+        });
+
+        options = {
+          body: formData,
+          method: 'POST',
+        };
+      } else {
+        // send all other requests using HTTP GET
+        const params = this.getQueryString(query);
+        url = `${endpoint}${method}?${params}`;
+        options = {
+          method: 'GET',
+          qs: query,
+        };
+      }
 
       fetch(url, options)
         .then((response) => {
