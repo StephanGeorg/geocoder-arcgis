@@ -48,7 +48,7 @@ Optional parameters:
 
 ### Reverse geocode (reverseGeocode)
 ```javascript
-geocoder.reverse('51.484463,-0.195405',{
+geocoder.reverse('51.484463,-0.195405',{ // longitude,latitude
   maxLocations: 10,
   distance: 100
 }).then((result) => {
