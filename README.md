@@ -52,7 +52,7 @@ geocoder.reverse('51.484463,-0.195405',{
   maxLocations: 10,
   distance: 100
 }).then((result) => {
-  console.log(response);
+  console.log(result);
 });
 ```
 
