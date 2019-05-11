@@ -35,9 +35,26 @@ describe('GeocoderArcGIS API Wrapper', function(){
     });
 
 
-    it('should be able to geocode', function(done) {
+    it('should be able to geocode (singleLine)', function(done) {
       this.timeout(TIMEOUT);
       geocoder.geocode('Glogauer Straße 5, 10999, Berlin')
+        .then(function(res) {
+          res.should.be.json;
+          done();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    });
+
+    it('should be able to geocode (object)', function(done) {
+      this.timeout(TIMEOUT);
+      geocoder.geocode({
+        address: 'Glogauer Straße 5',
+        postal: '10999',
+        city: 'Berlin',
+        countryCode: 'DEU'
+      })
         .then(function(res) {
           res.should.be.json;
           done();
